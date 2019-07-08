@@ -4,3 +4,54 @@ GET http://localhost:3000/ HTTP/1.1
 Content-Type: application/json
 
 ###
+
+GET http://localhost:3000/products HTTP/1.1
+Content-Type: application/json
+
+###
+
+GET http://localhost:3000/products/jgjgjg HTTP/1.1
+Content-Type: application/json
+
+###
+
+PATCH http://localhost:3000/products/jgjgjg HTTP/1.1
+Content-Type: application/json
+
+###
+
+DELETE http://localhost:3000/products/jgjgjg HTTP/1.1
+Content-Type: application/json
+
+###
+
+POST http://localhost:3000/products HTTP/1.1
+Content-Type: application/json
+
+{
+  "test": "test"
+}
+
+###
+
+GET http://localhost:3000/orders HTTP/1.1
+Content-Type: application/json
+
+###
+
+POST http://localhost:3000/orders HTTP/1.1
+Content-Type: application/json
+
+{
+
+}
+
+###
+
+GET http://localhost:3000/orders/jjjfjf HTTP/1.1
+Content-Type: application/json
+
+###
+
+DELETE http://localhost:3000/orders/jjjfjf HTTP/1.1
+Content-Type: application/json
