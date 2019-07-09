@@ -17,8 +17,16 @@ app.use('/products', productsRouter);
 app.use('/orders', ordersRouter);
 
 app.use((req, res, next) => {
-  res.status(200).json({ message: 'It works!' });
-  next();
+  const error = new Error('Not found');
+  error.status = 404;
+  next(error);
+});
+
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.json({
+    error: { message: err.message }
+  });
 });
 
 module.exports = app;
