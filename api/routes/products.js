@@ -7,7 +7,9 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  res.status(200).json({ message: 'Handling POST' });
+  const { name, price } = req.body;
+  const product = { name, price };
+  res.status(201).json({ message: 'Handling POST', createdProduct: product });
 });
 
 router.get('/:id', (req, res, next) => {
