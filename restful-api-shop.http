@@ -1,6 +1,6 @@
 ###
 
-GET http://localhost:3000/dd HTTP/1.1
+GET http://localhost:3000/ HTTP/1.1
 Content-Type: application/json
 
 ###
@@ -48,10 +48,10 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/orders/jjjfjf HTTP/1.1
+GET http://localhost:3000/orders/kjkj HTTP/1.1
 Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/orders/jjjfjf HTTP/1.1
+DELETE http://localhost:3000/orders/jhjhh HTTP/1.1
 Content-Type: application/json
