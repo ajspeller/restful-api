@@ -21,13 +21,13 @@ Content-Type: application/json
 [
   {
     "propName": "name", "value": "Toyota Prius",
-    "propName": "price", "value": "29999.00"
+    "propName": "price", "value": "17890.00"
   }
 ]
 
 ###
 
-DELETE http://localhost:3000/products/5d28f394598bfc5b0f8ad0b8 HTTP/1.1
+DELETE http://localhost:3000/products/5d2906e202e3392f7229bcf7 HTTP/1.1
 Content-Type: application/json
 
 ###
@@ -36,8 +36,8 @@ POST http://localhost:3000/products HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Chromebook",
-  "price": "49.99"
+  "name": "Manning Book",
+  "price": "39.99"
 }
 
 #######################################################

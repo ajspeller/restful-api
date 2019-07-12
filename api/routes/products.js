@@ -8,9 +8,25 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
   Product.find()
+    .select('-__v')
     .then((docs) => {
-      debug(docs);
-      res.status(200).json({ products: docs });
+      const response = {
+        count: docs.length,
+        products: docs.map((doc) => {
+          return {
+            id: doc._id,
+            name: doc.name,
+            price: doc.price,
+            request: {
+              type: 'GET',
+              url: `${req.protocol}://${req.get('host')}${req.originalUrl}/${
+                doc._id
+              }`
+            }
+          };
+        })
+      };
+      res.status(200).json(response);
     })
     .catch((err) => {
       debug(err);
@@ -28,8 +44,20 @@ router.post('/', (req, res, next) => {
   product
     .save()
     .then((doc) => {
-      debug(doc);
-      res.status(201).json({ createdProduct: doc });
+      const response = {
+        createdProduct: {
+          id: doc._id,
+          name: doc.name,
+          price: doc.price,
+          request: {
+            type: 'GET',
+            url: `${req.protocol}://${req.get('host')}${req.originalUrl}/${
+              doc._id
+            }`
+          }
+        }
+      };
+      res.status(201).json(response);
     })
     .catch((err) => {
       debug(err);
@@ -45,10 +73,22 @@ router.get('/:id', (req, res, next) => {
     });
   }
   Product.findById(id)
+    .select('-__v')
     .then((doc) => {
-      debug(doc);
+      const response = {
+        product: {
+          id: doc._id,
+          name: doc.name,
+          price: doc.price
+        },
+        request: {
+          type: 'GET',
+          description: 'Get all products',
+          url: `${req.protocol}://${req.get('host')}/products`
+        }
+      };
       if (doc) {
-        return res.status(200).json(doc);
+        return res.status(200).json(response);
       }
       res
         .status(404)
@@ -70,8 +110,19 @@ router.patch('/:id', (req, res, next) => {
     $set: updateOps
   })
     .then((doc) => {
-      debug(doc);
-      res.status(200).json(doc);
+      const response = {
+        message: 'Product updated',
+        product: {
+          id,
+          name: doc.name,
+          price: doc.price
+        },
+        request: {
+          type: 'GET',
+          url: `${req.protocol}://${req.get('host')}/products/${id}`
+        }
+      };
+      res.status(200).json(response);
     })
     .catch((err) => {
       res.status(500).json({ error: err });
@@ -82,9 +133,24 @@ router.delete('/:id', (req, res, next) => {
   const { id } = req.params;
   Product.findByIdAndDelete(id)
     .then((doc) => {
-      debug(doc);
+      const response = {
+        message: 'Product deleted',
+        product: {
+          id: doc._id,
+          name: doc.name,
+          price: doc.price
+        },
+        request: {
+          type: 'POST',
+          url: `${req.protocol}://${req.get('host')}/products`,
+          body: {
+            name: 'String',
+            price: 'Number'
+          }
+        }
+      };
       if (doc) {
-        return res.status(202).json({ product: doc });
+        return res.status(202).json(response);
       }
       res.status(400).json({ message: 'Product not found' });
     })

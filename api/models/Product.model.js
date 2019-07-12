@@ -4,10 +4,12 @@ const { Schema } = mongoose;
 const productSchema = new Schema({
   // _id: mongoose.Schema.'Types.ObjectId
   name: {
-    type: String
+    type: String,
+    require: true
   },
   price: {
-    type: Number
+    type: Number,
+    required: true
   }
 });
 
