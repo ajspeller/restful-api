@@ -10,17 +10,24 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/products/jgjgjg HTTP/1.1
+GET http://localhost:3000/products/5d28f7f4b5a3e503a13cd1e1 HTTP/1.1
 Content-Type: application/json
 
 ###
 
-PATCH http://localhost:3000/products/jgjgjg HTTP/1.1
+PATCH http://localhost:3000/products/5d28f7f4b5a3e503a13cd1e1 HTTP/1.1
 Content-Type: application/json
+
+[
+  {
+    "propName": "name", "value": "Toyota Prius",
+    "propName": "price", "value": "29999.00"
+  }
+]
 
 ###
 
-DELETE http://localhost:3000/products/jgjgjg HTTP/1.1
+DELETE http://localhost:3000/products/5d28f394598bfc5b0f8ad0b8 HTTP/1.1
 Content-Type: application/json
 
 ###
@@ -33,7 +40,8 @@ Content-Type: application/json
   "price": "49.99"
 }
 
-###
+#######################################################
+#######################################################
 
 GET http://localhost:3000/orders HTTP/1.1
 Content-Type: application/json
