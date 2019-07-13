@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const debug = require('debug')('app:app');
+const path = require('path');
 
 const productsRouter = require('./api/routes/products');
 const ordersRouter = require('./api/routes/orders');
@@ -25,6 +26,8 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+app.use('/uploads', express.static('uploads'));
 
 app.use('/products', productsRouter);
 app.use('/orders', ordersRouter);

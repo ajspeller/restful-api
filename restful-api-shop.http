@@ -1,21 +1,23 @@
-###
+################################################################
+### Products
+################################################################
 
-GET http://localhost:3000/ HTTP/1.1
+GET http://{{host}}/ HTTP/1.1
 Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/products HTTP/1.1
+GET http://{{host}}/products HTTP/1.1
 Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/products/5d28f7f4b5a3e503a13cd1e1 HTTP/1.1
+GET http://{{host}}/products/5d28f7f4b5a3e503a13cd1e1 HTTP/1.1
 Content-Type: application/json
 
 ###
 
-PATCH http://localhost:3000/products/5d28f7f4b5a3e503a13cd1e1 HTTP/1.1
+PATCH http://{{host}}/products/5d28f7f4b5a3e503a13cd1e1 HTTP/1.1
 Content-Type: application/json
 
 [
@@ -27,28 +29,41 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/products/5d2906e202e3392f7229bcf7 HTTP/1.1
+DELETE http://{{host}}/products/5d2906e202e3392f7229bcf7 HTTP/1.1
 Content-Type: application/json
 
 ###
 
-POST http://localhost:3000/products HTTP/1.1
-Content-Type: application/json
+POST http://{{host}}/products HTTP/1.1
+# Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
-{
-  "name": "Node.js In Action",
-  "price": "hello"
-}
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+Node.js In Action
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="price"
+
+34.95
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="productImage"; filename="AJS.jpg"
+Content-Type: image/jpg
+
+< /home/ajspeller/AJS.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
 
 #######################################################
+### Orders
 #######################################################
 
-GET http://localhost:3000/orders HTTP/1.1
+GET http://{{host}}/orders HTTP/1.1
 Content-Type: application/json
 
 ###
 
-POST http://localhost:3000/orders HTTP/1.1
+POST http://{{host}}/orders HTTP/1.1
 Content-Type: application/json
 
 {
@@ -58,17 +73,17 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/orders HTTP/1.1
+GET http://{{host}}/orders HTTP/1.1
 Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/orders/5d292de0abd6647ed12a5434 HTTP/1.1
+GET http://{{host}}/orders/5d292de0abd6647ed12a5434 HTTP/1.1
 Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/orders/5d292de7abd6647ed12a5435 HTTP/1.1
+DELETE http://{{host}}/orders/5d292de7abd6647ed12a5435 HTTP/1.1
 Content-Type: application/json
 
 ###

@@ -1,8 +1,38 @@
 const express = require('express');
 const { ObjectId } = require('mongoose').Types;
 const debug = require('debug')('app:product.model');
+const multer = require('multer');
 
 const Product = require('../models/Product.model');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, `${new Date().toISOString()}-${file.originalname}`);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  if (
+    file.mimetype === 'image/jpg' ||
+    file.mimetype === 'image/jpeg' ||
+    file.mimetype === 'image/png'
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+const upload = multer({
+  storage,
+  limit: {
+    fileSize: 1024 * 1024 * 1
+  },
+  fileFilter
+});
 
 const router = express.Router();
 
@@ -17,6 +47,9 @@ router.get('/', (req, res, next) => {
             id: doc._id,
             name: doc.name,
             price: doc.price,
+            productImage: `${req.protocol}://${req.get('host')}/${
+              doc.productImage
+            }`,
             request: {
               type: 'GET',
               url: `${req.protocol}://${req.get('host')}${req.originalUrl}/${
@@ -36,19 +69,26 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', upload.single('productImage'), (req, res, next) => {
+  debug(req.file);
   const { name, price } = req.body;
-  const productFields = { name, price };
+  const { path: productImage } = req.file ? req.file : {};
+  debug(productImage);
+  const productFields = { name, price, productImage };
   const product = new Product(productFields);
 
   product
     .save()
     .then((doc) => {
       const response = {
-        createdProduct: {
+        message: 'Product created',
+        product: {
           id: doc._id,
           name: doc.name,
           price: doc.price,
+          productImage: `${req.protocol}://${req.get('host')}/${
+            doc.productImage
+          }`,
           request: {
             type: 'GET',
             url: `${req.protocol}://${req.get('host')}${req.originalUrl}/${
