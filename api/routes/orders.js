@@ -10,6 +10,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   Order.find()
     .select('-__v')
+    .populate('product', '-__v')
     .then((docs) => {
       const response = {
         count: docs.length,
@@ -73,6 +74,7 @@ router.get('/:id', (req, res, next) => {
   const { id } = req.params;
   Order.findById(id)
     .select('-__v')
+    .populate('product', '-__v')
     .then((doc) => {
       if (!doc) {
         return res.status(404).json({
