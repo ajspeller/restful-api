@@ -36,8 +36,8 @@ POST http://localhost:3000/products HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Manning Book",
-  "price": "39.99"
+  "name": "Node.js In Action",
+  "price": "hello"
 }
 
 #######################################################
@@ -52,16 +52,23 @@ POST http://localhost:3000/orders HTTP/1.1
 Content-Type: application/json
 
 {
-  "productId":"99",
-  "quantity":"42"
+  "productId":"5d2900aadb48282148e48073",
+  "quantity":"199"
 }
 
 ###
 
-GET http://localhost:3000/orders/kjkj HTTP/1.1
+GET http://localhost:3000/orders HTTP/1.1
 Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/orders/jhjhh HTTP/1.1
+GET http://localhost:3000/orders/5d292de7abd6647ed12a5435 HTTP/1.1
 Content-Type: application/json
+
+###
+
+DELETE http://localhost:3000/orders/5d292de7abd6647ed12a5435 HTTP/1.1
+Content-Type: application/json
+
+###
