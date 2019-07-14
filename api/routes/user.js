@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const debug = require('debug')('app:user');
+const jwt = require('jsonwebtoken');
 
 const User = require('../models/User.model');
 
@@ -9,14 +10,12 @@ const router = express.Router();
 
 router.post('/signup', (req, res, next) => {
   const { email, password } = req.body;
-
   User.findOne({ email })
     .then((doc) => {
-      debug(doc);
       if (doc) {
         return res.status(409).json({ message: 'Email already exists' });
       } else {
-        bcrypt.hash(email, 10, (err, hash) => {
+        bcrypt.hash(password, 10, (err, hash) => {
           if (err) {
             return res.status(500).json({ error: err });
           } else {
@@ -38,17 +37,45 @@ router.post('/signup', (req, res, next) => {
       }
     })
     .catch((err) => {
-      res.status(500).json({});
+      res.status(500).json({ error: err });
     });
 });
 
-router.post('/signin', (req, res, next) => {
+router.post('/login', (req, res, next) => {
   const { email, password } = req.body;
-
   User.find({ email })
-    .then((doc) => {})
+    .then((docs) => {
+      if (docs.length === 0) {
+        return res.status(401).json({
+          message: 'Login failed'
+        });
+      }
+      bcrypt.compare(password, docs[0].password, (err, result) => {
+        if (err) {
+          return res.status(401).json({
+            message: 'Login failed'
+          });
+        }
+        if (result) {
+          const token = jwt.sign(
+            { email: docs[0].email, userId: docs[0]._id },
+            process.env.JWT_KEY,
+            {
+              expiresIn: '1h'
+            }
+          );
+          return res.status(200).json({
+            message: 'Auth successful',
+            token
+          });
+        }
+        res.status(401).json({
+          message: 'Login failed'
+        });
+      });
+    })
     .catch((err) => {
-      res.status(500).json({});
+      res.status(500).json({ error: err });
     });
 });
 

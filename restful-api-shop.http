@@ -94,13 +94,23 @@ POST http://{{host}}/user/signup HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "tester@gmail.com",
+  "email": "ajspeller@gmail.com",
   "password": "password123"
 }
 
 ###
 
-DELETE http://{{host}}/user/5d29852586793f3cb384afb5 HTTP/1.1
+POST http://{{host}}/user/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "ajspeller@gmail.com",
+  "password": "password123"
+}
+
+###
+
+DELETE http://{{host}}/user/5d2b641741abd209f194c619 HTTP/1.1
 Content-Type: application/json
 
 ###
