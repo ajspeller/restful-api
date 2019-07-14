@@ -12,24 +12,27 @@ Content-Type: application/json
 
 ###
 
-GET http://{{host}}/products/5d28f7f4b5a3e503a13cd1e1 HTTP/1.1
+GET http://{{host}}/products/5d2b7ab25196be1fbd243885 HTTP/1.1
 Content-Type: application/json
 
 ###
 
-PATCH http://{{host}}/products/5d28f7f4b5a3e503a13cd1e1 HTTP/1.1
+PATCH http://{{host}}/products/5d2b70fa66a718132b86a114 HTTP/1.1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 [
   {
-    "propName": "name", "value": "Toyota Prius",
-    "propName": "price", "value": "17890.00"
+    "propName": "name", "value": "Express In Action"
+  },
+  {
+    "propName": "price", "value": "39.99"
   }
 ]
 
 ###
 
-DELETE http://{{host}}/products/5d2906e202e3392f7229bcf7 HTTP/1.1
+DELETE http://{{host}}/products/5d2b7ab25196be1fbd243885 HTTP/1.1
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -42,11 +45,11 @@ Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0g
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="name"
 
-Toyota Prius
+Pixel 3 XL
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="price"
 
-19435.65
+399.99
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="productImage"; filename="AJS.jpg"
 Content-Type: image/jpg
@@ -70,7 +73,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "productId":"5d2900aadb48282148e48073",
+  "productId":"5d2b70fa66a718132b86a114",
   "quantity":"199"
 }
 
@@ -82,13 +85,13 @@ Content-Type: application/json
 
 ###
 
-GET http://{{host}}/orders/5d292de0abd6647ed12a5434 HTTP/1.1
+GET http://{{host}}/orders/5d2b778230ad141ba97510a6 HTTP/1.1
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 ###
 
-DELETE http://{{host}}/orders/5d292de7abd6647ed12a5435 HTTP/1.1
+DELETE http://{{host}}/orders/5d2b778230ad141ba97510a6 HTTP/1.1
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
@@ -100,7 +103,7 @@ POST http://{{host}}/user/signup HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "ajspeller@gmail.com",
+  "email": "rakim@gmail.com",
   "password": "password123"
 }
 
@@ -116,7 +119,7 @@ Content-Type: application/json
 
 ###
 
-DELETE http://{{host}}/user/5d2b641741abd209f194c619 HTTP/1.1
+DELETE http://{{host}}/user/5d2b847c8ba4c825f97cf8f9 HTTP/1.1
 Content-Type: application/json
 
 ###
@@ -125,16 +128,3 @@ GET http://{{host}}/user HTTP/1.1
 Content-Type: application/json
 
 ###
-
-POST http://{{host}}/signin HTTP/1.1
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="email"
-
-Node.js In Action
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="password"
-
-34.95
-------WebKitFormBoundary7MA4YWxkTrZu0gW--
