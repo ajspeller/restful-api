@@ -30,22 +30,23 @@ Content-Type: application/json
 ###
 
 DELETE http://{{host}}/products/5d2906e202e3392f7229bcf7 HTTP/1.1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 ###
 
 POST http://{{host}}/products HTTP/1.1
-# Authorization: Bearer {{token}}
+Authorization: Bearer {{token}}
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="name"
 
-Node.js In Action
+Toyota Prius
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="price"
 
-34.95
+19435.65
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="productImage"; filename="AJS.jpg"
 Content-Type: image/jpg
@@ -59,11 +60,13 @@ Content-Type: image/jpg
 #######################################################
 
 GET http://{{host}}/orders HTTP/1.1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 ###
 
 POST http://{{host}}/orders HTTP/1.1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -74,16 +77,19 @@ Content-Type: application/json
 ###
 
 GET http://{{host}}/orders HTTP/1.1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 ###
 
 GET http://{{host}}/orders/5d292de0abd6647ed12a5434 HTTP/1.1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 ###
 
 DELETE http://{{host}}/orders/5d292de7abd6647ed12a5435 HTTP/1.1
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 #######################################################

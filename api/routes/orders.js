@@ -4,10 +4,11 @@ const debug = require('debug')('app:order');
 
 const Order = require('../models/Order.model');
 const Product = require('../models/Product.model');
+const checkAuth = require('../auth/check-auth');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', checkAuth, (req, res) => {
   Order.find()
     .select('-__v')
     .populate('product', '-__v')
@@ -33,7 +34,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', checkAuth, (req, res, next) => {
   const { productId: product, quantity } = req.body;
   const order = new Order({ quantity, product });
 
@@ -70,7 +71,7 @@ router.post('/', (req, res, next) => {
     });
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', checkAuth, (req, res, next) => {
   const { id } = req.params;
   Order.findById(id)
     .select('-__v')
@@ -99,7 +100,7 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', checkAuth, (req, res, next) => {
   const { id } = req.params;
   Order.findByIdAndDelete(id)
     .then((doc) => {

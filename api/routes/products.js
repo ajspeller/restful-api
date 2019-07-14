@@ -4,6 +4,7 @@ const debug = require('debug')('app:product.model');
 const multer = require('multer');
 
 const Product = require('../models/Product.model');
+const checkAuth = require('../auth/check-auth');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -69,11 +70,9 @@ router.get('/', (req, res, next) => {
     });
 });
 
-router.post('/', upload.single('productImage'), (req, res, next) => {
-  debug(req.file);
+router.post('/', checkAuth, upload.single('productImage'), (req, res, next) => {
   const { name, price } = req.body;
   const { path: productImage } = req.file ? req.file : {};
-  debug(productImage);
   const productFields = { name, price, productImage };
   const product = new Product(productFields);
 
@@ -119,7 +118,10 @@ router.get('/:id', (req, res, next) => {
         product: {
           id: doc._id,
           name: doc.name,
-          price: doc.price
+          price: doc.price,
+          productImage: `${req.protocol}://${req.get('host')}/${
+            doc.productImage
+          }`
         },
         request: {
           type: 'GET',
@@ -140,7 +142,7 @@ router.get('/:id', (req, res, next) => {
     });
 });
 
-router.patch('/:id', (req, res, next) => {
+router.patch('/:id', checkAuth, (req, res, next) => {
   const { id } = req.params;
   const updateOps = {};
   for (const ops of req.body) {
@@ -169,7 +171,7 @@ router.patch('/:id', (req, res, next) => {
     });
 });
 
-router.delete('/:id', (req, res, next) => {
+router.delete('/:id', checkAuth, (req, res, next) => {
   const { id } = req.params;
   Product.findByIdAndDelete(id)
     .then((doc) => {
